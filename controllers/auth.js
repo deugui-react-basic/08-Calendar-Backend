@@ -61,7 +61,7 @@ const loginUsuario = async (req, res = response) => {
         const validarPassword = bcrypt.compareSync(password, usuario.password);
 
         if (!validarPassword) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'Password incorrecta'
             });
@@ -70,7 +70,7 @@ const loginUsuario = async (req, res = response) => {
         // Generar nuestro JWK
         const token = await generarJWT(usuario.id, usuario.name);
 
-        res.status(200).json({
+        return res.status(200).json({
             ok: true,
             uid: usuario.id,
             name: usuario.name,
